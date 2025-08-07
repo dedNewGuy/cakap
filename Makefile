@@ -7,6 +7,9 @@ SRCS = main.c
 $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
 
-.PHONY: clean
+.PHONY: clean run
+run:
+	./$(TARGET)
+
 clean:
 	rm -f $(TARGET)
