@@ -28,7 +28,7 @@ int main(void)
 
 	struct addrinfo hints = {0}, *serv_info = NULL;
 
-	hints.ai_family = AF_INET6;
+	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	int addrinfo_stats = getaddrinfo(network_name, DEFAULT_IRC_PORT, &hints, &serv_info);
 	if (addrinfo_stats < 0) {
