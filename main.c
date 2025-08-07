@@ -8,17 +8,29 @@
 
 #define DEFAULT_IRC_PORT "6667"
 
-void dump_ipv4_byname(struct addrinfo *info)
+void dump_ip_byname(struct addrinfo *info)
 {
 	char ipstr[INET6_ADDRSTRLEN] = {0};
 	struct addrinfo *p = NULL;
 
 	for (p = info; p != NULL; p = p->ai_next) {
-		struct sockaddr_in *ipv4 = (struct sockaddr_in *) p->ai_addr;
-		void *addr = &(ipv4->sin_addr);
+		void *addr;
+		char *ipver;
+		struct sockaddr_in *ipv4;
+		struct sockaddr_in6 *ipv6;
 
-		inet_ntop(p->ai_family, addr, ipstr, sizeof ipstr);
-		printf("    %s: %s\n", "IPV4", ipstr);
+		if (p->ai_family == AF_INET) {
+			ipv4 = (struct sockaddr_in *) p->ai_addr;
+			addr = &(ipv4->sin_addr);
+			ipver = "IPv4";
+		} else {
+			ipv6 = (struct sockaddr_in6 *) p->ai_addr;
+			addr = &(ipv6->sin6_addr);
+			ipver = "IPv6";
+		}
+
+		inet_ntop(p->ai_family, addr, ipstr, sizeof(ipstr));
+		printf("    %s: %s\n", ipver, ipstr);
 	}
 }
 
@@ -35,6 +47,8 @@ int main(void)
 		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(addrinfo_stats));
 		return 1;
 	}
+
+	dump_ip_byname(serv_info);
 
 	int sockfd = socket(serv_info->ai_family, serv_info->ai_socktype, serv_info->ai_protocol);
 	if (sockfd < 0) {
