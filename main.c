@@ -26,11 +26,20 @@ int main(void)
 		goto defer;
 	}
 
+	int conn_stats = connect(sockfd, serv_info->ai_addr, serv_info->ai_addrlen);
+	if (conn_stats < 0) {
+		perror("Making connection error");
+		goto defer;
+	}
+
 	freeaddrinfo(serv_info);
 	close(sockfd);
 	return 0;
 
 defer:
 	freeaddrinfo(serv_info);
+	if (sockfd != -1) {
+		close(sockfd);
+	}
 	return 1;
 }
