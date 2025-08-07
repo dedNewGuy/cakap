@@ -1,8 +1,12 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -std=c11
+CFLAGS = -ggdb -Wall -Wextra
 
 TARGET = cakap
 SRCS = main.c
 
 $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
+
+.PHONY: clean
+clean:
+	rm -f $(TARGET)
