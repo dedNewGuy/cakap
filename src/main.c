@@ -58,9 +58,9 @@ recv_msg_handler(void *args)
 int 
 main(void)
 {
-	char *net_name = "erbium.libera.chat";
+	char *net_name = "chat.freenode.net";
 
-	struct addrinfo hints = {0}; 
+	struct addrinfo hints = {0};
 
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
