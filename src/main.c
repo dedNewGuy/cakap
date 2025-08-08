@@ -87,11 +87,13 @@ irc_send_ident(struct net_config_t *cfg,char *pass, char *nick, char *user)
 int 
 main(int argc, char **argv)
 {
-	if (argc != 2) {
-		fprintf(stderr, "Usage: cakap <server name>\n");
+	if (argc != 4) {
+		fprintf(stderr, "Usage: cakap <server name> <nick> <user>\n");
 		return 2;
 	}
 	char *net_name = argv[1];
+	char *nick_name = argv[2];
+	char *user_name = argv[3];
 
 	struct addrinfo hints = {0};
 
@@ -109,7 +111,9 @@ main(int argc, char **argv)
 	}
 	printf("Connected!\n");
 
-	irc_send_ident(net_cfg, "none", "minzo_912", "Amengdv");
+	// Password will be set to none for now
+	// TODO: Proper ident handling
+	irc_send_ident(net_cfg, "none", nick_name, user_name);
 
 	pthread_t recv_thread, send_thread;
 
