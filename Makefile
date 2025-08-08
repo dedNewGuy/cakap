@@ -1,8 +1,9 @@
 CC = gcc
-CFLAGS = -ggdb -Wall -Wextra
+CFLAGS = -ggdb -Wall -Wextra -I./include
 
+SRCDIR = src
 TARGET = cakap
-SRCS = main.c
+SRCS = $(SRCDIR)/main.c
 
 $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
@@ -12,4 +13,4 @@ run:
 	./$(TARGET)
 
 clean:
-	rm -f $(TARGET)
+	rm -rf $(TARGET)
