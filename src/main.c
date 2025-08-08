@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <string.h>
+#include <sys/socket.h>
 #include "common_util.h"
 #include "net.h"
 
@@ -65,6 +66,24 @@ recv_msg_handler(void *args)
 	return NULL;
 }
 
+void
+irc_send_ident(struct net_config_t *cfg,char *pass, char *nick, char *user)
+{
+	char buf[256] = {0}; 
+	sprintf(buf, 
+		 "PASS %s\r\nNICK %s\r\nUSER %s localhost localhost :%s\r\n",
+		 pass,
+		 nick,
+		 nick, user
+		 );
+	printf("%s\n", buf);
+	if (send(cfg->sockfd, buf, strlen(buf), 0) < 0) {
+		perror("Sending identity information error");
+		fprintf(stderr, "Please send it manually\n");
+		return;
+	}
+}
+
 int 
 main(int argc, char **argv)
 {
@@ -89,6 +108,8 @@ main(int argc, char **argv)
 		return 1;
 	}
 	printf("Connected!\n");
+
+	irc_send_ident(net_cfg, "none", "minzo_912", "Amengdv");
 
 	pthread_t recv_thread, send_thread;
 
