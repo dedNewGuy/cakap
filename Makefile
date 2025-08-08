@@ -3,7 +3,7 @@ CFLAGS = -ggdb -Wall -Wextra -I./include
 
 SRCDIR = src
 TARGET = cakap
-SRCS = $(SRCDIR)/main.c
+SRCS = $(SRCDIR)/main.c $(SRCDIR)/net.c
 
 $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)

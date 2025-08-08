@@ -1,5 +1,9 @@
 #ignore executable
 cakap
 
-#ignore tags
+#ignore editor related
 tags
+
+#ignore lsp related
+compile_commands.json
+.cache/
