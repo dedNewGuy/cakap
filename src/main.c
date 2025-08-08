@@ -17,13 +17,18 @@ send_msg_handler(void *args)
 		if (s == NULL) {
 			break;
 		}
-		ssize_t nbuf = send(net_cfg->sockfd, buffer, sizeof buffer, 0);
+		// APPEND "\r\n" to the buffer
+		int buf_len = strlen(buffer);
+		buffer[buf_len - 1] = '\r';
+		buffer[buf_len++] = '\n';
+		buffer[buf_len] = '\0';
+		ssize_t nbuf = send(net_cfg->sockfd, buffer, strlen(buffer), 0);
 		if (nbuf < -1) {
 			perror("Error sending message");
 			continue;
 		}
 
-		if (strcmp(buffer, "QUIT\n") == 0) break;;
+		if (strcmp(buffer, "QUIT\r\n") == 0) break;;
 	}
 
 	shutdown(net_cfg->sockfd, SHUT_WR);
