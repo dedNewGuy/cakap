@@ -23,9 +23,9 @@ send_msg_handler(void *args)
 			continue;
 		}
 
-		if (strcmp(buffer, "QUIT") == 0) break;
+		if (strcmp(buffer, "QUIT\n") == 0) break;;
 	}
-	
+
 	shutdown(net_cfg->sockfd, SHUT_WR);
 	return NULL;
 }
@@ -35,22 +35,18 @@ recv_msg_handler(void *args)
 {
 	struct net_config_t *net_cfg = (struct net_config_t *)args;
 	char msg[4096] = {0};
-	bool end = false;
-	while (!end) {
+	while (1) {
 		memset(msg, 0, sizeof msg);
 		ssize_t nbuf = recv(net_cfg->sockfd, msg, sizeof msg, 0);
 		if (nbuf < 0) {
 			perror("Receive data error");
-			end = true;
-			net_free(net_cfg);
+			continue;
 		}
 
-		if (nbuf == 0) {
-			end = true;
-		}
+		if (nbuf == 0) break;
 		printf("%s", msg);
 	}
-	
+
 	return NULL;
 }
 
