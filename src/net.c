@@ -29,8 +29,10 @@ net_setup(struct addrinfo hints, char *net_name, char *port)
 	}
 
 	net_cfg->net_info = serv_info;
-	strcpy(net_cfg->net_name, net_name);
-	strcpy(net_cfg->net_port, port);
+	if (net_name != NULL)
+		strcpy(net_cfg->net_name, net_name);
+	if (port != NULL)
+		strcpy(net_cfg->net_port, port);
 	net_cfg->sockfd = sockfd;
 
 	return net_cfg;
