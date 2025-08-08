@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <string.h>
+#include "common_util.h"
 #include "net.h"
 
 #define DEFAULT_IRC_PORT "6667"
@@ -50,6 +51,14 @@ recv_msg_handler(void *args)
 
 		if (nbuf == 0) break;
 		printf("%s", msg);
+
+		str_trim_end(strlen(msg), msg);
+		char *resp = strtok(msg, " ");
+		if (strcmp(resp, "PING") == 0) {
+			if (net_pong(*net_cfg, strtok(NULL, " ")) < 0) {
+				perror("Failed to pong");
+			}
+		}
 	}
 
 	return NULL;

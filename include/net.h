@@ -19,6 +19,9 @@ struct net_config_t*
 net_setup(struct addrinfo hints, char *net_name, char *port);
 
 int
+net_pong(struct net_config_t cfg, char *message);
+
+int
 net_connect(struct net_config_t *cfg);
 
 void

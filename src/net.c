@@ -1,4 +1,5 @@
 #include <netdb.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -56,6 +57,24 @@ net_connect(struct net_config_t *cfg)
 	}
 
 	return conn_stats;
+}
+
+int
+net_pong(struct net_config_t cfg, char *message)
+{
+	char buf[256] = "PONG";
+	if (message != NULL) {
+		strcat(buf, " ");
+		strcat(buf, message);
+	}
+	strcat(buf, "\r\n");
+	printf("%s", buf);
+	ssize_t nbuf = send(cfg.sockfd, buf, strlen(buf), 0);
+	if (nbuf < 0) {
+		return nbuf;
+	}
+
+	return 0;
 }
 
 void
