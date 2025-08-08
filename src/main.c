@@ -25,7 +25,7 @@ send_msg_handler(void *args)
 		buffer[buf_len++] = '\n';
 		buffer[buf_len] = '\0';
 		ssize_t nbuf = send(net_cfg->sockfd, buffer, strlen(buffer), 0);
-		if (nbuf < -1) {
+		if (nbuf < 0) {
 			perror("Error sending message");
 			continue;
 		}
