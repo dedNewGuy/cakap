@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include <string.h>
 #include "net.h"
 
 #define DEFAULT_IRC_PORT "6667"
@@ -26,11 +25,10 @@ int main(void)
 	}
 	printf("Connected!\n");
 
-	shutdown(net_cfg->sockfd, SHUT_WR);
-
 	char msg[4096] = {0};
 	bool end = false;
 	while (!end) {
+		memset(msg, 0, sizeof msg);
 		ssize_t nbuf = recv(net_cfg->sockfd, msg, sizeof msg, 0);
 		if (nbuf < 0) {
 			perror("Receive data error");
