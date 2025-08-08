@@ -20,10 +20,8 @@ int main(void)
 	}
 
 	printf("Connecting to %s:%s...\n", net_name, DEFAULT_IRC_PORT);
-	int conn_stats = connect(net_cfg->sockfd, net_cfg->net_info->ai_addr, net_cfg->net_info->ai_addrlen);
+	int conn_stats = net_connect(net_cfg);
 	if (conn_stats < 0) {
-		perror("Making connection error");
-		net_free(net_cfg);
 		return 1;
 	}
 	printf("Connected!\n");

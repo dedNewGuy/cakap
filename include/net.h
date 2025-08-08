@@ -18,6 +18,9 @@ struct net_config_t {
 struct net_config_t*
 net_setup(struct addrinfo hints, char *net_name, char *port);
 
+int
+net_connect(struct net_config_t *cfg);
+
 void
 net_free(struct net_config_t *net_config);
 

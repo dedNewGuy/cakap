@@ -43,6 +43,19 @@ defer:
 	return NULL;
 }
 
+int
+net_connect(struct net_config_t *cfg)
+{
+	int conn_stats = connect(cfg->sockfd, cfg->net_info->ai_addr, cfg->net_info->ai_addrlen);
+	if (conn_stats < 0) {
+		perror("Making connection error");
+		net_free(cfg);
+		return conn_stats;
+	}
+
+	return conn_stats;
+}
+
 void
 net_free(struct net_config_t *net_config)
 {
