@@ -22,8 +22,11 @@ send_msg_handler(void *args)
 			perror("Error sending message");
 			continue;
 		}
-	}
 
+		if (strcmp(buffer, "QUIT") == 0) break;
+	}
+	
+	shutdown(net_cfg->sockfd, SHUT_WR);
 	return NULL;
 }
 
