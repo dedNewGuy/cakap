@@ -18,7 +18,8 @@ send_msg_handler(void *args)
 		if (s == NULL) {
 			break;
 		}
-		// APPEND "\r\n" to the buffer
+		// APPEND "\r\n" to the buffer: RFC1459
+		// https://www.rfc-editor.org/rfc/rfc1459
 		int buf_len = strlen(buffer);
 		buffer[buf_len - 1] = '\r';
 		buffer[buf_len++] = '\n';
