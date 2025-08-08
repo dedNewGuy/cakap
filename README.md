@@ -15,3 +15,7 @@ Basic IRC Client implemented in C for the Terminal.
 make
 ./cakap erbium.libera.chat nickname123 username456
 ```
+
+## TODO
+- [ ] More robust command handling
+- [ ] Better interface to interact with (Possibly TUI)
