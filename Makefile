@@ -6,7 +6,7 @@ TARGET = cakap
 SRCS = $(SRCDIR)/main.c $(SRCDIR)/net.c
 
 $(TARGET): $(SRCS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS) -lpthread
 
 .PHONY: clean run
 run:
