@@ -50,7 +50,8 @@ recv_msg_handler(void *args)
 	return NULL;
 }
 
-int main(void)
+int 
+main(void)
 {
 	char *net_name = "erbium.libera.chat";
 
