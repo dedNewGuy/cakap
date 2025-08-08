@@ -56,9 +56,13 @@ recv_msg_handler(void *args)
 }
 
 int 
-main(void)
+main(int argc, char **argv)
 {
-	char *net_name = "chat.freenode.net";
+	if (argc != 2) {
+		fprintf(stderr, "Usage: cakap <server name>\n");
+		return 2;
+	}
+	char *net_name = argv[1];
 
 	struct addrinfo hints = {0};
 
